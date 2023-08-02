@@ -303,8 +303,8 @@ itemRelevant.addEventListener('click', ( e )=>{
 
 itemLatest.addEventListener('click', ( e )=>{
   let latest = allPosts.sort(( a , b )=>{
-    let dateA = Date.now(b.createdAt)
-    let dateB = Date.now(a.createdAt)
+    let dateA = new Date(b.createdAt)
+    let dateB = new Date(a.createdAt)
     return dateB - dateA;
   })
   printAllPost(latest)
