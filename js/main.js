@@ -181,7 +181,7 @@ const print3Post = (threePostArray) => {
   let getListsTags = document.querySelectorAll(".listing1")
   getListsTags.forEach((tag, i)=>{
       tag.addEventListener("click",(e)=>{
-        window.open( `views/detailPost.html?id=${threePostArray[i].key}` , "_self" )
+        window.open( `views/detailPost.html?id=${threePostArray[i]._id}` , "_self" )
       })
   })
 }
