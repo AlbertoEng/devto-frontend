@@ -14,13 +14,13 @@ const id = params.get("id");
 
 const updatePost = ( post )=>{
     let imagen = document.getElementById('imageNewPost');
-    imagen.setAttribute('src', post.imageUrl);
+    imagen.setAttribute('src', post.image);
 
     let titulo = document.getElementById('titulo-post');
     titulo.innerText = post.title;
 
     let content = document.getElementById('content-post');
-    content.innerText = post.content;
+    content.innerText = post.body;
 
 }
 
@@ -36,10 +36,14 @@ botonNuevoPost.addEventListener('click',()=>{
 
 // traerme los datos del post con el id anterior
 const getPostById = async ()=>{
-
-    let response = await fetch(`https://mi-proyecto-7bd3d-default-rtdb.firebaseio.com/posts/${id}/.json`)
+    const token = localStorage.getItem('token');
+    let response = await fetch(`http://localhost:3000/posts/${id}`,{
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    })
     let data = await response.json();
-    updatePost(data)
+    updatePost(data.data.post)
 }
 
 getPostById();

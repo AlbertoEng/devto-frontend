@@ -1,11 +1,8 @@
 const nuevoObjeto = {
-    imageUrl: '',
+    image: '',
     title: '',
     tags: [],
-    content: '',
-    createdAt: '',
-    relevant: '',
-    vote: ''
+    body: '',
 }
 
 let lastPost = ''
@@ -23,30 +20,36 @@ const crearFormatoFecha = () => {
 }
 
 const crearNuevoPost = async () => {
-    
+    const token = localStorage.getItem('token');
+    const user = localStorage.getItem('user');
     if (nuevoObjeto.imageUrl === '' || nuevoObjeto.title === '' || nuevoObjeto.content === '') {
         return
     }
-    nuevoObjeto.relevant = Math.floor(Math.random() + 1) ? true : false;
-    nuevoObjeto.createdAt = crearFormatoFecha();
-    nuevoObjeto.vote = Math.floor(Math.random() * 300);
-    let response = await fetch("https://mi-proyecto-7bd3d-default-rtdb.firebaseio.com/posts/.json", {
+    // nuevoObjeto.relevant = Math.floor(Math.random() + 1) ? true : false;
+    // nuevoObjeto.vote = Math.floor(Math.random() * 300);
+    nuevoObjeto.user = user
+    let response = await fetch("http://localhost:3000/posts", {
         method: 'POST',
         body: JSON.stringify(nuevoObjeto),
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+        }
     });
+
     let data = await response.json();
-    await localStorage.setItem('lastPost', data.name );
-    window.open('/', '_self')
+    localStorage.setItem('lastPost', data.name );
+    window.open('/', '_self');
 }
 
 botonPublish.addEventListener('click', (ev) => {
     crearNuevoPost().then(() => {
-
+        console.log('epa')
     });
 })
 
 
-
+// #tag #tag1 #tag2     ['#tag', '#tag1','#tag2'];    ['tag', 'tag1','tag2'];
 const separateTags = (text, name) => {
     let tags = text.split(' ');
     tags = tags.map((tag) => {

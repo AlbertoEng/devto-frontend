@@ -66,7 +66,11 @@ i {
     display: block;
     position: absolute;
     top: 53%;
-    width: 80% !important;
+    width: 80% ;
+}
+
+.tag-item:hover{
+    background-color: rgba(116, 116, 116, 0.411);
 }
 
 .passwordInput {
@@ -419,7 +423,18 @@ i {
     margin-left: 20px;
     flex-wrap: wrap;
 }
+.post__language:hover {
+    font-size: 14px;
+    margin-left: 20px;
+    flex-wrap: wrap;
+    background-color: rgba(54, 42, 223, 0.486);
+    color: white;
+    border-radius: 5px;
+}
 
+.card-body:hover{
+    cursor: pointer;
+}
 
 .post__reactions {
     margin-top: 10px;

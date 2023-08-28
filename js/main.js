@@ -21,9 +21,9 @@ let allPosts = []
 
 const getAllPosts = async () => {
   // GET
-  let response = await fetch("https://mi-proyecto-7bd3d-default-rtdb.firebaseio.com/posts/.json");
+  let response = await fetch("http://localhost:3000/posts");
   let data = await response.json();
-
+  data = data.data.posts
   // convertir mi objeto de posts a array
   // {  _1241242141: { .... }, _2421521515: { .... }  }
   for (let i in data) {
@@ -32,17 +32,8 @@ const getAllPosts = async () => {
   }
 
   // consultar el ultimo post y ponerlo primeras
-  if(localStorage.getItem('lastPost') !== '' ){
-    // buscar el objeto con el id del ultimo post y filtrar excluyendolo
-    let lastPostKey = localStorage.getItem('lastPost');
-    let lastPostObj = allPosts.find(( post )=> post.key === lastPostKey);
-    let listModified = allPosts.filter(( post )=>{
-      return post.key !== lastPostObj.key;
-    })
-    listModified.unshift(lastPostObj);
-    allPosts = listModified;
-  }
-
+  const ultimoPost = allPosts.pop();
+  allPosts.unshift(ultimoPost);
 
   // console.log( allPosts[ Math.floor(Math.random() * allPosts.length ) ])
   return allPosts;
@@ -57,43 +48,41 @@ const printAllPost = async  (listPosts) => {
   let imagenAvatar = await fetch(`https://randomuser.me/api/?results=${listPosts.length}`);
   let data = await imagenAvatar.json();
   
-    console.log(listPosts)
   // creando las cards de los posts
   let cards = ''
   listPosts.forEach((post, i) => {
 
-    let tagsElements = post.tags.reduce(( acum, curr)=>{
-      return acum + `<div><button class="post__language">#${curr}</button></div>`
-    },'');
-
+    // let tagsElements = post.tags.reduce(( acum, curr)=>{
+    //   return acum + `<div ><button class="post__language">#${curr}</button></div>`
+    // },'');
     cards += `<a
-    href="views/detailPost.html?id=${post.key}"
+    href="views/detailPost.html?id=${post._id}"
     class="text-decoration-none"
     >
     <div class="card" style="width: 100%; border-radius: 5px">
       <img
         class="card-img-top ${ i == 0 ?  '': 'image-post'}"
-        src=${post.imageUrl}
+        src=${post.image}
         alt="..."
       />
       <div class="poster">
         <img
           class="rounded-5 post__photo"
           alt="algo"
-          src="${data.results[i].picture.thumbnail}"
+          src="${post.user.profilePic}"
           alt=""
         />
         <div class="post__info">
           <p class="post__name">Jatin Sharma for Documatic</p>
           <br />
-          <p class="post__date">Posted ${post.createdAt}</p>
+          <p class="post__date">Posted ${post.created_at}</p>
         </div>
       </div>
       <h1 class="post__title">
         ${post.title}
       </h1>
       <div id='section-tags-in-post' class="post_prog_lang">
-        ${tagsElements}
+      
       </div>
       <div class="post__reactions d-flex d-row">
         <img src="sources/images/reactions.png" alt="" />
@@ -149,10 +138,9 @@ const printAllPost = async  (listPosts) => {
 // en el dom sobre un elemento
 const printRandomPost = (randomPost) => {
   let containerRandomPost = document.getElementById('random-post-container'); // contenedor
-
   let imgContainer = document.createElement('div');   // div
   let imgRandomPost = document.createElement('img');  // imagen 
-  imgRandomPost.setAttribute('src', randomPost.imageUrl);
+  imgRandomPost.setAttribute('src', randomPost.image);
   imgRandomPost.style.width = '100%';
   imgContainer.append(imgRandomPost);
   let titulo = document.createElement('p');
@@ -162,7 +150,8 @@ const printRandomPost = (randomPost) => {
 
   
   containerRandomPost.addEventListener('click', ()=>{
-    window.open(`views/detailPost.html?id=${randomPost.key}`, '_self');
+    console.log(randomPost._id)
+    window.open(`views/detailPost.html?id=${randomPost._id}`, '_self');
   })
 
 }
@@ -189,10 +178,8 @@ const print3Post = (threePostArray) => {
         </a>
         <hr class="my-2" />`
   })
- console.log(listsPostByTag)
   containerFirstTag.innerHTML = listsPostByTag
   let getListsTags = document.querySelectorAll(".listing1")
-  console.log(getListsTags);
   getListsTags.forEach((tag, i)=>{
       tag.addEventListener("click",(e)=>{
         window.open( `views/detailPost.html?id=${threePostArray[i].key}` , "_self" )
@@ -222,7 +209,6 @@ const print3Post2nd = (threePostArray) => {
   // console.log(getListsTags2nd)
   containerSecondTag.innerHTML = listsPostByTag2nd
   let getListsTags2nd = document.querySelectorAll(".listing2")
-  console.log(getListsTags2nd)
   getListsTags2nd.forEach((tag, i)=>{
       tag.addEventListener("click",(e)=>{
         window.open( `views/detailPost.html?id=${threePostArray[i].key}` , "_self" )
@@ -317,11 +303,18 @@ itemTop.addEventListener('click', ( e )=>{
   printAllPost(listTop)
 })
 
-
-
+const getUser = async ()=>{
+  const user = localStorage.getItem('user');
+  const getUserDatabase = await fetch(`http://localhost:3000/users/${user}`)
+  const userData = await getUserDatabase.json()
+  const avatar = document.getElementById('avatar_img');
+  avatar.setAttribute('src', userData.data.user.profilePic );
+  
+}
 
 // inicia Jesus 
 getAllPosts().then((posts) => {
+  getUser();
   getOneRandomPost(posts)
   printAllPost(posts)
 

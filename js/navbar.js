@@ -10,13 +10,10 @@ const createNavbar = (isLogged) => {
   </span>
   </button>
   <img src="https://dev-to-uploads.s3.amazonaws.com/uploads/logos/resized_logo_UQww2soKuUsjaOGNB38o.png" alt="" height="40">
-  </div>
-  
-  
   <!-- BÚSQUEDA -->
   
   
-  <div class="d-none d-md-block m-auto nav_form_container">
+  <div class="d-none d-md-block m-auto nav_form_container mx-3">
   <form class="d-flex form__search" role="search">
   <div class="input-group">
   <input
@@ -56,6 +53,9 @@ const createNavbar = (isLogged) => {
   
   
   <!-- TERMINA BÚSQUEDA -->
+  </div>
+  
+  
   
   
   ${isLogged
@@ -101,8 +101,9 @@ const createNavbar = (isLogged) => {
   <div class="dropdown">
   <button class="btn mt-1 dropdown-toggle-no-caret" type="button" data-bs-toggle="dropdown" aria-expanded="false">
   <img
-  src="https://ca.slack-edge.com/TCRFJBKB6-U0275TN36E8-db6aee7f44f9-192"
+  src="https://th.bing.com/th/id/R.b1c131b8da9278bff3be80106c7d2058?rik=PicaGM7Cf6NyMA&pid=ImgRaw&r=0"
   alt=""
+  id="avatar_img"
   class="navbar-nav rounded-circle me-1"
   height="40"
   />
