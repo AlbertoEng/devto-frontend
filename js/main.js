@@ -143,11 +143,10 @@ const printRandomPost = (randomPost) => {
   imgRandomPost.setAttribute('src', randomPost.image);
   imgRandomPost.style.width = '100%';
   imgContainer.append(imgRandomPost);
-  let titulo = document.createElement('p');
-  titulo.innerText = randomPost.title;
+  let titulo = document.createElement('p'); // <p></p>
+  titulo.innerText = randomPost.title;  // <p>ssfsafkafnasfmansfa</p>
   containerRandomPost.append(imgContainer);
   containerRandomPost.append(titulo);
-
   
   containerRandomPost.addEventListener('click', ()=>{
     console.log(randomPost._id)
@@ -185,14 +184,10 @@ const print3Post = (threePostArray) => {
         window.open( `views/detailPost.html?id=${threePostArray[i].key}` , "_self" )
       })
   })
-
-
-
 }
 
 ///watercolor 2
 const print3Post2nd = (threePostArray) => {
-
 
   let containerSecondTag = document.getElementById('listPostTag2');
   let listsPostByTag2nd = ''
@@ -280,13 +275,14 @@ let itemRelevant= document.getElementById('item-relevant');
 let itemLatest = document.getElementById('item-latest');
 let itemTop = document.getElementById('item-top');
 
+// filtro relevant
 itemRelevant.addEventListener('click', ( e )=>{
   let relevants = allPosts.filter(( post )=>{
     return post.relevant === true;
   })
   printAllPost(relevants);
 })
-
+// filtro Latest
 itemLatest.addEventListener('click', ( e )=>{
   let latest = allPosts.sort(( a , b )=>{
     let dateA = new Date(b.createdAt)
@@ -295,7 +291,7 @@ itemLatest.addEventListener('click', ( e )=>{
   })
   printAllPost(latest)
 })
-
+// filtro Top ordena por mas votos
 itemTop.addEventListener('click', ( e )=>{
   let listTop = allPosts.sort(( a , b )=>{
     return b.vote - a.vote;

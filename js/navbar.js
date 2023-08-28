@@ -3,20 +3,20 @@ const createNavbar = (isLogged) => {
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
-  <nav class="navbar d-flex p-0 px-3 bg-white nav__container ">
-  <div class="d-flex justify-content-center">
+  <nav  class="navbar p-0 px-3 bg-white nav__container ">
+  <div class="d-flex w-auto justify-content-center">
   <button class="navbar-toggler border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
-  <span class="navbar-toggler-icon">
-  </span>
+    <span class="navbar-toggler-icon"></span>
   </button>
   <img src="https://dev-to-uploads.s3.amazonaws.com/uploads/logos/resized_logo_UQww2soKuUsjaOGNB38o.png" alt="" height="40">
   <!-- BÚSQUEDA -->
   
   
-  <div class="d-none d-md-block m-auto nav_form_container mx-3">
+  <div class="d-none d-md-block nav_form_container mx-2">
   <form class="d-flex form__search" role="search">
-  <div class="input-group">
+  <div class="input-group justify-self-start">
   <input
+  style='width:400px'
   id='input-search'
   type="text"
   class="form-control border-end-0"
@@ -49,6 +49,7 @@ const createNavbar = (isLogged) => {
   </button>
   </div>
   </form>
+  
   </div>
   
   

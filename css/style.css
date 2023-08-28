@@ -14,7 +14,7 @@ body {
 
 .texto-rayado {
     position: relative;
-    width: 80%;
+    width: 80% !important;
     /* Ancho deseado del div */
     margin: 0 auto;
     /* Centra el div horizontalmente, puedes ajustar según necesites */
